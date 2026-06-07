@@ -7,6 +7,7 @@ import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
 import adminRoutes from './routes/admin';
 import providerRoutes from './routes/providers';
+import billingRoutes from './routes/billing';
 
 // Import provider modules to register them
 import './providers/twilio';
@@ -30,6 +31,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/providers', providerRoutes);
+app.use('/api/billing', billingRoutes);
 
 // Serve frontend in production
 const frontendDist = path.join(__dirname, '..', '..', 'frontend', 'dist');

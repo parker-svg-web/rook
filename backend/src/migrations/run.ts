@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
   company_name  TEXT NOT NULL,
   password_hash TEXT NOT NULL,
   role          TEXT NOT NULL DEFAULT 'customer' CHECK(role IN ('customer', 'admin')),
+  stripe_customer_id TEXT,
   created_at    TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at    TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -127,6 +128,14 @@ export async function runMigrations(): Promise<void> {
   const db = getDb();
   console.log('[rook-db] Running migrations...');
   db.exec(SCHEMA);
+  
+  // Migrate: Add stripe_customer_id to users if not exists
+  try {
+    db.run("ALTER TABLE users ADD COLUMN stripe_customer_id TEXT");
+  } catch (e: any) {
+    // Column already exists — ignore
+  }
+  
   db.save();
   console.log('[rook-db] Migrations complete.');
 }
