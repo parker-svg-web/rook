@@ -8,15 +8,16 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Backend dependencies (including dev deps for build)
-COPY backend/package.json backend/package-lock.json ./backend/
+# Copy all backend source first (node_modules excluded via .dockerignore)
+COPY backend/ ./backend/
+
+# Install all backend deps (including dev deps for tsc build)
 RUN cd backend && npm ci
 
-# Backend source + TypeScript compilation
-COPY backend/ ./backend/
+# Compile TypeScript
 RUN cd backend && npx tsc
 
-# Frontend build
+# Copy and build frontend
 COPY frontend/package.json frontend/package-lock.json ./frontend/
 RUN cd frontend && npm ci
 COPY frontend/ ./frontend/
