@@ -8,8 +8,9 @@ import dashboardRoutes from './routes/dashboard';
 import adminRoutes from './routes/admin';
 import providerRoutes from './routes/providers';
 import billingRoutes from './routes/billing';
+import gatewayRoutes from './routes/gateway';
 
-// Import provider modules to register them
+// Import provider modules to register them in the provider registry
 import './providers/twilio';
 import './providers/sendgrid';
 import './providers/openai';
@@ -32,6 +33,7 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/providers', providerRoutes);
 app.use('/api/billing', billingRoutes);
+app.use('/api/v1', gatewayRoutes);
 
 // Serve frontend in production
 const frontendDist = path.join(__dirname, '..', '..', 'frontend', 'dist');
