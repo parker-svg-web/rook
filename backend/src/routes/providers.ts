@@ -23,7 +23,7 @@ router.use(authMiddleware);
 router.post('/:slug/execute', async (req: Request, res: Response): Promise<void> => {
   const db = getDb();
   const userId = req.user!.userId;
-  const { slug } = req.params;
+  const slug = req.params.slug as string;
   const { operation, params } = req.body;
 
   if (!operation || !params) {
@@ -103,7 +103,7 @@ router.post('/:slug/execute', async (req: Request, res: Response): Promise<void>
  * Estimate credits for a hypothetical operation without executing
  */
 router.post('/:slug/estimate', (req: Request, res: Response): void => {
-  const { slug } = req.params;
+  const slug = req.params.slug as string;
   const { operation, params } = req.body;
 
   const provider = getProvider(slug);

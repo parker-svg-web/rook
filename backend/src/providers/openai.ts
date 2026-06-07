@@ -132,7 +132,7 @@ class OpenAIProvider implements ApiProviderIntegration {
         body: JSON.stringify(requestBody),
       });
 
-      const responseData = await response.json();
+      const responseData: any = await response.json();
 
       if (!response.ok) {
         const errorCode = responseData.error?.code || 'unknown';
@@ -268,7 +268,7 @@ class OpenAIProvider implements ApiProviderIntegration {
       const response = await fetch(`${OPENAI_API_BASE}/models`, {
         headers: { 'Authorization': `Bearer ${apiKey}` },
       });
-      const data = await response.json();
+      const data: any = await response.json();
       return {
         accessible_models: data.data?.length || 0,
         organization: config.organization_id || 'default',
