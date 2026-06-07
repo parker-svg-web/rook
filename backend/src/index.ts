@@ -6,6 +6,12 @@ import { runMigrations } from './migrations/run';
 import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
 import adminRoutes from './routes/admin';
+import gatewayRoutes from './routes/gateway';
+
+// Import provider modules to register them in the provider registry
+import './providers/twilio';
+import './providers/sendgrid';
+import './providers/openai';
 
 const app = express();
 const PORT = parseInt(process.env.PORT || '4000', 10);
@@ -23,6 +29,7 @@ app.get('/api/health', (_req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/v1', gatewayRoutes);
 
 // Serve frontend in production
 const frontendDist = path.join(__dirname, '..', '..', 'frontend', 'dist');
