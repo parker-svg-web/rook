@@ -36,7 +36,14 @@ app.use('/api/billing', billingRoutes);
 app.use('/api/v1', gatewayRoutes);
 
 // Serve frontend in production
-const frontendDist = path.join(__dirname, '..', '..', 'frontend', 'dist');
+// Try multiple possible paths for the frontend dist directory
+const possiblePaths = [
+  path.join(__dirname, '..', '..', 'frontend', 'dist'),       // /app/backend/dist -> /app/frontend/dist
+  path.join(__dirname, '..', '..', '..', 'frontend', 'dist'), // deeper nesting
+  path.join(process.cwd(), 'frontend', 'dist'),               // /app/frontend/dist
+  '/app/frontend/dist',                                       // Railway absolute
+];
+const frontendDist = possiblePaths.find(p => { try { return require('fs').existsSync(p); } catch { return false; } }) || possiblePaths[0];
 app.use(express.static(frontendDist));
 app.get('*', (_req, res) => {
   res.sendFile(path.join(frontendDist, 'index.html'));
