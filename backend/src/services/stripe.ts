@@ -131,8 +131,8 @@ export async function createBillingSubscription(params: CreateSubscriptionParams
     db.save();
 
     // 6. Return client secret for payment confirmation
-    const latestInvoice = subscription.latest_invoice as Stripe.Invoice;
-    const paymentIntent = latestInvoice?.payment_intent as Stripe.PaymentIntent;
+    const latestInvoice = subscription.latest_invoice as any;
+    const paymentIntent = latestInvoice?.payment_intent as any;
 
     return {
       success: true,
@@ -262,7 +262,7 @@ export async function generateOverageInvoice(subscriptionId: string): Promise<an
   try {
     const user = db.prepare('SELECT stripe_customer_id FROM users WHERE id = ?').get(sub.user_id) as any;
 
-    const invoiceItem = await stripe.invoiceItems.create({
+    await (stripe.invoiceItems.create as any)({
       customer: user.stripe_customer_id,
       price_data: {
         currency: 'usd',
@@ -294,12 +294,12 @@ export async function generateOverageInvoice(subscriptionId: string): Promise<an
 /**
  * Handle Stripe webhook events
  */
-export async function handleWebhook(event: Stripe.Event): Promise<void> {
+export async function handleWebhook(event: any): Promise<void> {
   const db = getDb();
 
   switch (event.type) {
     case 'invoice.paid': {
-      const invoice = event.data.object as Stripe.Invoice;
+      const invoice = event.data.object as any;
       const subId = invoice.metadata?.subscription_id;
       if (subId) {
         db.run("UPDATE billing_records SET status = 'paid', paid_at = datetime('now') WHERE subscription_id = ? AND status = 'pending'", subId);
@@ -308,7 +308,7 @@ export async function handleWebhook(event: Stripe.Event): Promise<void> {
     }
 
     case 'invoice.payment_failed': {
-      const failedInvoice = event.data.object as Stripe.Invoice;
+      const failedInvoice = event.data.object as any;
       const failedSubId = failedInvoice.metadata?.subscription_id;
       if (failedSubId) {
         db.run("UPDATE subscriptions SET status = 'past_due' WHERE id = ?", failedSubId);
@@ -318,7 +318,7 @@ export async function handleWebhook(event: Stripe.Event): Promise<void> {
     }
 
     case 'customer.subscription.updated': {
-      const stripeSub = event.data.object as Stripe.Subscription;
+      const stripeSub = event.data.object as any;
       const userId = stripeSub.metadata?.rook_user_id;
       if (userId && stripeSub.status === 'past_due') {
         db.run("UPDATE subscriptions SET status = 'past_due' WHERE user_id = ? AND status = 'active'", userId);
@@ -327,7 +327,7 @@ export async function handleWebhook(event: Stripe.Event): Promise<void> {
     }
 
     case 'customer.subscription.deleted': {
-      const deletedSub = event.data.object as Stripe.Subscription;
+      const deletedSub = event.data.object as any;
       const delUserId = deletedSub.metadata?.rook_user_id;
       if (delUserId) {
         db.run("UPDATE subscriptions SET status = 'cancelled' WHERE user_id = ? AND status = 'active'", delUserId);

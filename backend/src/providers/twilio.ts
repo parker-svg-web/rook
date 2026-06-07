@@ -115,7 +115,7 @@ class TwilioProvider implements ApiProviderIntegration {
         }
       );
 
-      const responseData = await response.json();
+      const responseData: any = await response.json();
 
       if (!response.ok) {
         const errorMsg = responseData.message || 'Twilio API error';
@@ -186,7 +186,7 @@ class TwilioProvider implements ApiProviderIntegration {
     }
   }
 
-  async checkBalance(config: ProviderConfig): Promise<any> {
+  async checkBalance(config: ProviderConfig, requestId?: string): Promise<any> {
     const accountSid = config.account_sid || config.api_key.split(':')[0];
     const authToken = decryptApiKey(config.api_key);
 
@@ -199,7 +199,7 @@ class TwilioProvider implements ApiProviderIntegration {
           },
         }
       );
-      const data = await response.json();
+      const data: any = await response.json();
       return {
         balance: data.balance,
         status: data.status,

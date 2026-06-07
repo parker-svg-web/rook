@@ -78,7 +78,7 @@ export async function initDb(): Promise<void> {
   db.run('PRAGMA foreign_keys = ON');
 }
 
-export function getDb() {
+export function getDb(): any {
   if (!db) {
     throw new Error('Database not initialized. Call initDb() first.');
   }

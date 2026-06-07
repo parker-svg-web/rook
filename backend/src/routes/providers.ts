@@ -23,8 +23,9 @@ router.use(authMiddleware);
 router.post('/:slug/execute', async (req: Request, res: Response): Promise<void> => {
   const db = getDb();
   const userId = req.user!.userId;
-  const { slug } = req.params;
-  const { operation, params } = req.body;
+  const slug = req.params.slug as string;
+  const operation = req.body.operation as string;
+  const params = req.body.params;
 
   if (!operation || !params) {
     res.status(400).json({ error: 'Missing required fields: operation, params' });
@@ -103,8 +104,9 @@ router.post('/:slug/execute', async (req: Request, res: Response): Promise<void>
  * Estimate credits for a hypothetical operation without executing
  */
 router.post('/:slug/estimate', (req: Request, res: Response): void => {
-  const { slug } = req.params;
-  const { operation, params } = req.body;
+  const slug = req.params.slug as string;
+  const operation = req.body.operation as string;
+  const params = req.body.params;
 
   const provider = getProvider(slug);
   if (!provider) {

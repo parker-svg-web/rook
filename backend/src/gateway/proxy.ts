@@ -7,7 +7,7 @@
 import { v4 as uuid } from 'uuid';
 import { getDb } from '../models/database';
 import { getProvider, getAllProviders, ProviderConfig } from '../providers/index';
-import { getPoolStatus, recordUsage, autoRefill } from '../services/pooling';
+import { getPoolStatus, recordUsage, autoRefill, PoolStatus } from '../services/pooling';
 
 // Standard response envelope for all gateway calls
 export interface GatewayResponse {

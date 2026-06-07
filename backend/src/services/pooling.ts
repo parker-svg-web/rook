@@ -11,7 +11,7 @@ import { getDb } from '../models/database';
  * - Generate alerts for low credit scenarios
  */
 
-interface PoolStatus {
+export interface PoolStatus {
   subscription_id: string;
   pool_total: number;
   pool_used: number;

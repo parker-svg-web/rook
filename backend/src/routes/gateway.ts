@@ -24,7 +24,8 @@ router.use(authMiddleware);
  * Body: { "to": "+1234567890", "body": "Hello from Rook!" }
  */
 router.post('/proxy/:provider/:operation', async (req: Request, res: Response): Promise<void> => {
-  const { provider, operation } = req.params;
+  const provider = req.params.provider as string;
+  const operation = req.params.operation as string;
   const params = req.body;
   const userId = req.user!.userId;
 
