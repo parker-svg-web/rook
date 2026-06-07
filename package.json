@@ -4,6 +4,6 @@
   "private": true,
   "scripts": {
     "build": "cd backend && npm ci && npx tsc && cd ../frontend && npm ci && npm run build",
-    "start": "cd backend && node dist/index.js"
+    "start": "node backend/dist/index.js"
   }
 }

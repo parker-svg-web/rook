@@ -36,14 +36,21 @@ app.use('/api/billing', billingRoutes);
 app.use('/api/v1', gatewayRoutes);
 
 // Serve frontend in production
-// Try multiple possible paths for the frontend dist directory
+// Debug: log where we're looking
+console.log('[rook-backend] __dirname:', __dirname);
+console.log('[rook-backend] cwd:', process.cwd());
+const fs = require('fs');
 const possiblePaths = [
-  path.join(__dirname, '..', '..', 'frontend', 'dist'),       // /app/backend/dist -> /app/frontend/dist
-  path.join(__dirname, '..', '..', '..', 'frontend', 'dist'), // deeper nesting
-  path.join(process.cwd(), 'frontend', 'dist'),               // /app/frontend/dist
-  '/app/frontend/dist',                                       // Railway absolute
+  path.join(process.cwd(), '..', 'frontend', 'dist'),         // Railway: cwd=backend -> ../frontend/dist
+  path.join(__dirname, '..', '..', 'frontend', 'dist'),       // Docker: __dirname=backend/dist -> frontend/dist
+  path.join(process.cwd(), 'frontend', 'dist'),               // cwd=root -> frontend/dist
+  '/app/frontend/dist',                                       // Docker legacy
 ];
-const frontendDist = possiblePaths.find(p => { try { return require('fs').existsSync(p); } catch { return false; } }) || possiblePaths[0];
+for (const p of possiblePaths) {
+  console.log('[rook-backend] checking path:', p, 'exists:', fs.existsSync(p));
+}
+const frontendDist = possiblePaths.find(p => fs.existsSync(p)) || possiblePaths[0];
+console.log('[rook-backend] using frontendDist:', frontendDist);
 app.use(express.static(frontendDist));
 app.get('*', (_req, res) => {
   res.sendFile(path.join(frontendDist, 'index.html'));
