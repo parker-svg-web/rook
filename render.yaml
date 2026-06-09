@@ -4,7 +4,3 @@ services:
     runtime: node
     buildCommand: cd backend && npm ci && npx tsc && cd ../frontend && npm ci && npm run build
     startCommand: node backend/dist/index.js
-    healthCheckPath: /api/health
-    env:
-      - key: PORT
-        value: "4000"
