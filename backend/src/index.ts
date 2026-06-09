@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import { initDb, getDb } from './models/database';
+import { initDb } from './models/database';
 import { runMigrations } from './migrations/run';
 import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
@@ -22,7 +22,7 @@ const PORT = parseInt(process.env.PORT || '4000', 10);
 app.use(cors());
 app.use(express.json());
 
-// Health check (doesn't require DB)
+// Health check
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', service: 'rook-backend', version: '0.1.0' });
 });
@@ -36,21 +36,7 @@ app.use('/api/billing', billingRoutes);
 app.use('/api/v1', gatewayRoutes);
 
 // Serve frontend in production
-// Debug: log where we're looking
-console.log('[rook-backend] __dirname:', __dirname);
-console.log('[rook-backend] cwd:', process.cwd());
-const fs = require('fs');
-const possiblePaths = [
-  path.join(process.cwd(), '..', 'frontend', 'dist'),         // Railway: cwd=backend -> ../frontend/dist
-  path.join(__dirname, '..', '..', 'frontend', 'dist'),       // Docker: __dirname=backend/dist -> frontend/dist
-  path.join(process.cwd(), 'frontend', 'dist'),               // cwd=root -> frontend/dist
-  '/app/frontend/dist',                                       // Docker legacy
-];
-for (const p of possiblePaths) {
-  console.log('[rook-backend] checking path:', p, 'exists:', fs.existsSync(p));
-}
-const frontendDist = possiblePaths.find(p => fs.existsSync(p)) || possiblePaths[0];
-console.log('[rook-backend] using frontendDist:', frontendDist);
+const frontendDist = path.join(process.cwd(), 'frontend', 'dist');
 app.use(express.static(frontendDist));
 app.get('*', (_req, res) => {
   res.sendFile(path.join(frontendDist, 'index.html'));
@@ -60,16 +46,12 @@ app.get('*', (_req, res) => {
 async function start() {
   await initDb();
   await runMigrations();
-
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[rook-backend] Server running on http://0.0.0.0:${PORT}`);
-    console.log(`[rook-backend] API: http://0.0.0.0:${PORT}/api/health`);
+    console.log(`[rook] Server running on http://0.0.0.0:${PORT}`);
   });
 }
 
 start().catch((err) => {
-  console.error('[rook-backend] Failed to start:', err);
+  console.error('[rook] Failed to start:', err);
   process.exit(1);
 });
-
-export default app;
