@@ -2,5 +2,5 @@ services:
   - type: web
     name: rook
     runtime: node
-    buildCommand: cd backend && npm ci && npx tsc && cd ../frontend && npm ci && npm run build
+    buildCommand: cd backend && npm install && npx tsc && cd ../frontend && npm install && npm run build
     startCommand: node backend/dist/index.js
