@@ -94,7 +94,7 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
                 {tier.features.map(f => (<li key={f} style={{ padding: '8px 0', color: '#cbd5e1', fontSize: 14, borderBottom: '1px solid #1e293b' }}>✓ {f}</li>))}
               </ul>
               <button onClick={onGetStarted} style={{
-                width: '100%', padding: '14px', borderRadius: 10, border: 'none',
+                width: '100%', padding: '14px', borderRadius: 10,
                 background: tier.popular ? '#2563eb' : 'transparent',
                 border: tier.popular ? 'none' : '1px solid #334155',
                 color: tier.popular ? 'white' : '#e2e8f0',
