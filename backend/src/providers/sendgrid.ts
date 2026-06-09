@@ -191,7 +191,7 @@ class SendGridProvider implements ApiProviderIntegration {
       const response = await fetch(`${SENDGRID_API_BASE}/stats`, {
         headers: { 'Authorization': `Bearer ${apiKey}` },
       });
-      return await response.json();
+return await response.json() as any;
     } catch {
       return { error: 'Could not fetch SendGrid usage' };
     }
@@ -203,7 +203,7 @@ class SendGridProvider implements ApiProviderIntegration {
       const response = await fetch(`${SENDGRID_API_BASE}/user/profile`, {
         headers: { 'Authorization': `Bearer ${apiKey}` },
       });
-      return await response.json();
+      return await response.json() as any;
     } catch {
       return { error: 'Could not fetch SendGrid status' };
     }

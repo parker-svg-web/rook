@@ -1,0 +1,9 @@
+{
+  "name": "rook",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "cd backend && npm ci && npx tsc && cd ../frontend && npm ci && npm run build",
+    "start": "node backend/dist/index.js"
+  }
+}

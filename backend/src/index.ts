@@ -7,8 +7,10 @@ import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
 import adminRoutes from './routes/admin';
 import providerRoutes from './routes/providers';
+import billingRoutes from './routes/billing';
+import gatewayRoutes from './routes/gateway';
 
-// Import provider modules to register them
+// Import provider modules to register them in the provider registry
 import './providers/twilio';
 import './providers/sendgrid';
 import './providers/openai';
@@ -30,9 +32,25 @@ app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/providers', providerRoutes);
+app.use('/api/billing', billingRoutes);
+app.use('/api/v1', gatewayRoutes);
 
 // Serve frontend in production
-const frontendDist = path.join(__dirname, '..', '..', 'frontend', 'dist');
+// Debug: log where we're looking
+console.log('[rook-backend] __dirname:', __dirname);
+console.log('[rook-backend] cwd:', process.cwd());
+const fs = require('fs');
+const possiblePaths = [
+  path.join(process.cwd(), '..', 'frontend', 'dist'),         // Railway: cwd=backend -> ../frontend/dist
+  path.join(__dirname, '..', '..', 'frontend', 'dist'),       // Docker: __dirname=backend/dist -> frontend/dist
+  path.join(process.cwd(), 'frontend', 'dist'),               // cwd=root -> frontend/dist
+  '/app/frontend/dist',                                       // Docker legacy
+];
+for (const p of possiblePaths) {
+  console.log('[rook-backend] checking path:', p, 'exists:', fs.existsSync(p));
+}
+const frontendDist = possiblePaths.find(p => fs.existsSync(p)) || possiblePaths[0];
+console.log('[rook-backend] using frontendDist:', frontendDist);
 app.use(express.static(frontendDist));
 app.get('*', (_req, res) => {
   res.sendFile(path.join(frontendDist, 'index.html'));

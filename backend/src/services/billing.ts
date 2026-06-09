@@ -64,7 +64,7 @@ export function generateMonthlyBill(subscriptionId: string): {
     return { success: true, billing_record_id: billingId };
   });
 
-  return billTx();
+  return billTx;
 }
 
 /**

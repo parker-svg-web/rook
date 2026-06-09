@@ -1,0 +1,59 @@
+# ============================================================
+# Rook — Docker Compose (Local Development)
+# ============================================================
+
+services:
+  rook-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rook-backend
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - JWT_SECRET=rook-dev-secret-change-in-production
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-sk_test_placeholder}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-whsec_placeholder}
+      - STRIPE_PRICE_STARTER_MONTHLY=${STRIPE_PRICE_STARTER_MONTHLY:-price_starter_monthly}
+      - STRIPE_PRICE_STARTER_ANNUAL=${STRIPE_PRICE_STARTER_ANNUAL:-price_starter_annual}
+      - STRIPE_PRICE_GROWTH_MONTHLY=${STRIPE_PRICE_GROWTH_MONTHLY:-price_growth_monthly}
+      - STRIPE_PRICE_GROWTH_ANNUAL=${STRIPE_PRICE_GROWTH_ANNUAL:-price_growth_annual}
+      - STRIPE_OVERAGE_PRICE_ID=${STRIPE_OVERAGE_PRICE_ID:-price_overage}
+      - ROOK_TWILIO_API_KEY=${ROOK_TWILIO_API_KEY:-}
+      - ROOK_TWILIO_ACCOUNT_SID=${ROOK_TWILIO_ACCOUNT_SID:-}
+      - ROOK_SENDGRID_API_KEY=${ROOK_SENDGRID_API_KEY:-}
+      - ROOK_OPENAI_API_KEY=${ROOK_OPENAI_API_KEY:-}
+    volumes:
+      - rook-data:/app/backend/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:4000/api/health', (r) => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
+
+  # Dev server with hot reload (for local development)
+  rook-dev:
+    image: node:20-alpine
+    container_name: rook-dev
+    working_dir: /app
+    command: >
+      sh -c "cd backend && npm install && npx tsx src/index.ts"
+    ports:
+      - "4001:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - JWT_SECRET=rook-dev-secret-change-in-production
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend/dist:/app/frontend/dist
+      - rook-dev-data:/app/backend/data
+    profiles:
+      - dev
+
+volumes:
+  rook-data:
+  rook-dev-data:

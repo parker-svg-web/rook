@@ -50,7 +50,7 @@ class TwilioProvider implements ApiProviderIntegration {
       case 'send-sms':
         return this.sendSms(subscriptionId, config, params, requestId);
       case 'check-balance':
-        return this.checkBalance(config);
+        return this.checkBalance(config, requestId);
       default:
         return { success: false, credits_used: 0, error: `Unknown operation: ${operation}` };
     }
@@ -186,7 +186,7 @@ class TwilioProvider implements ApiProviderIntegration {
     }
   }
 
-  async checkBalance(config: ProviderConfig): Promise<any> {
+      async checkBalance(config: ProviderConfig, requestId?: string): Promise<any> {
     const accountSid = config.account_sid || config.api_key.split(':')[0];
     const authToken = decryptApiKey(config.api_key);
 

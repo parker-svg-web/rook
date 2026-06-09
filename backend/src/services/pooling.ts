@@ -11,7 +11,7 @@ import { getDb } from '../models/database';
  * - Generate alerts for low credit scenarios
  */
 
-interface PoolStatus {
+export interface PoolStatus {
   subscription_id: string;
   pool_total: number;
   pool_used: number;
@@ -67,7 +67,7 @@ export function recordUsage(params: {
   const db = getDb();
 
   // Start a transaction
-  const recordUsageTx = db.transaction(() => {
+  const result = db.transaction(() => {
     // Get subscription
     const sub = db.prepare('SELECT * FROM subscriptions WHERE id = ?').get(params.subscription_id) as any;
     if (!sub) {
@@ -76,6 +76,7 @@ export function recordUsage(params: {
     if (sub.status !== 'active') {
       throw new Error('Subscription is not active');
     }
+    // ... (rest of function follows)
 
     // Get subscription API link
     const subApi = db.prepare(
@@ -153,7 +154,6 @@ export function recordUsage(params: {
   });
 
   try {
-    const result = recordUsageTx();
     return result;
   } catch (err: any) {
     return { success: false, pool_remaining: 0, overage: false, error: err.message };
