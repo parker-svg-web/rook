@@ -108,16 +108,18 @@ export function getDb(): any {
     },
 
     /** Transaction helper */
-    transaction<T>(fn: () => T): T {
-      db!.run('BEGIN TRANSACTION');
-      try {
-        const result = fn();
-        db!.run('COMMIT');
-        return result;
-      } catch (e) {
-        db!.run('ROLLBACK');
-        throw e;
-      }
+    transaction<T>(fn: () => T): () => T {
+      return () => {
+        db!.run('BEGIN TRANSACTION');
+        try {
+          const result = fn();
+          db!.run('COMMIT');
+          return result;
+        } catch (e) {
+          db!.run('ROLLBACK');
+          throw e;
+        }
+      };
     },
 
     /** Export and save to disk */

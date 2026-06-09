@@ -186,7 +186,7 @@ class TwilioProvider implements ApiProviderIntegration {
     }
   }
 
-  async checkBalance(config: ProviderConfig, requestId?: string): Promise<any> {
+      async checkBalance(config: ProviderConfig, requestId?: string): Promise<any> {
     const accountSid = config.account_sid || config.api_key.split(':')[0];
     const authToken = decryptApiKey(config.api_key);
 
