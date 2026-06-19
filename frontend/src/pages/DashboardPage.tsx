@@ -161,54 +161,6 @@ export default function DashboardPage({ data, onLogout }: Props) {
           </div>
         </div>
 
-        {/* Linked APIs */}
-        <div style={{ ...styles.card, marginBottom: 28, padding: 28 }}>
-          <h2 style={styles.sectionTitle}>
-            Linked APIs ({apis.length}/{subscription.max_apis} max)
-          </h2>
-          {apis.length === 0 ? (
-            <p style={{ color: '#a0a0a0', fontSize: 14 }}>No APIs linked yet.</p>
-          ) : (
-            <table style={styles.table}>
-              <thead>
-                <tr>
-                  <th style={styles.th}>Provider</th>
-                  <th style={styles.th}>Label</th>
-                  <th style={styles.th}>Allocated</th>
-                  <th style={styles.th}>Used</th>
-                  <th style={styles.th}>Utilization</th>
-                </tr>
-              </thead>
-              <tbody>
-                {apis.map((api, i) => (
-                  <tr key={i} style={{ transition: 'background 0.2s ease' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#222222'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
-                    <td style={styles.td}>
-                      <span style={{ fontWeight: 600, color: '#ffffff' }}>{api.provider_name}</span>
-                    </td>
-                    <td style={styles.td}>{api.api_key_label || '—'}</td>
-                    <td style={styles.td}>{formatNumber(api.allocated_credits)}</td>
-                    <td style={styles.td}>{formatNumber(api.credits_used)}</td>
-                    <td style={styles.td}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <div style={{ width: 80, height: 6, background: '#0a0a0a', borderRadius: 3, overflow: 'hidden' }}>
-                          <div style={{
-                            height: '100%',
-                            width: `${Math.min(api.utilization_pct, 100)}%`,
-                            background: api.utilization_pct > 80 ? '#ef4444' : api.utilization_pct > 50 ? '#f59e0b' : '#22c55e',
-                            borderRadius: 3,
-                            transition: 'width 0.3s ease',
-                          }} />
-                        </div>
-                        <span style={{ fontSize: 12, color: '#a0a0a0', fontWeight: 500 }}>{api.utilization_pct}%</span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-
         {/* Recent Usage */}
         <div style={{ ...styles.card, marginBottom: 28, padding: 28 }}>
           <h2 style={styles.sectionTitle}>Recent Usage (Last 30 Days)</h2>

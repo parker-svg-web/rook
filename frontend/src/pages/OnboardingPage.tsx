@@ -22,7 +22,6 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
   const [password, setPassword] = useState('');
   const [company, setCompany] = useState('');
   const [selectedPlan, setSelectedPlan] = useState<string>(plans[0]?.slug || 'starter');
-  const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -38,7 +37,7 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Registration failed');
       localStorage.setItem('rook_token', data.token);
-      setStep(2);
+      setStep(1);
     } catch (e: any) {
       setError(e.message);
     }
@@ -57,31 +56,6 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Subscription failed');
-      setStep(3);
-    } catch (e: any) {
-      setError(e.message);
-    }
-    setLoading(false);
-  }
-
-  function toggleProvider(slug: string) {
-    setSelectedProviders(prev =>
-      prev.includes(slug) ? prev.filter(p => p !== slug) : [...prev, slug]
-    );
-  }
-
-  async function handleProvidersComplete() {
-    setLoading(true);
-    setError('');
-    try {
-      const t = localStorage.getItem('rook_token');
-      for (const slug of selectedProviders) {
-        await fetch(`/api/dashboard/link-provider`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${t}` },
-          body: JSON.stringify({ provider_slug: slug }),
-        });
-      }
       onComplete();
     } catch (e: any) {
       setError(e.message);
@@ -89,7 +63,7 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
     setLoading(false);
   }
 
-  const steps = ['Create Account', 'Pick a Plan', 'Connect APIs', 'Done'];
+  const steps = ['Create Account', 'Pick a Plan', 'Done'];
   const plan = plans.find(p => p.slug === selectedPlan);
 
   const inputStyle: React.CSSProperties = {
@@ -138,7 +112,7 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
       <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 24px' }}>
         {error && <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 10, padding: 12, marginBottom: 16, color: '#ef4444', fontSize: 13 }}>{error}</div>}
 
-        {/* Step 1: Register */}
+        {/* Step 0: Register */}
         {step === 0 && (
           <div style={{ background: '#1a1a1a', borderRadius: 16, padding: 40, border: '1px solid #2a2a2a' }}>
             <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8, color: '#ffffff' }}>Create Your Account</h2>
@@ -153,8 +127,8 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
           </div>
         )}
 
-        {/* Step 2: Pick a Plan */}
-        {step === 2 && (
+        {/* Step 1: Pick a Plan */}
+        {step === 1 && (
           <div>
             <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8, color: '#ffffff' }}>Choose Your Plan</h2>
             <p style={{ color: '#666666', marginBottom: 32, fontSize: 14 }}>Pick the tier that fits your team. You can upgrade anytime.</p>
@@ -180,41 +154,6 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
               </div>
             ))}
             <button style={{ ...btnStyle, marginTop: 16 }} onClick={handlePlanSelect} disabled={loading}>{loading ? 'Setting up...' : 'Continue with ' + (plan?.name || 'Selected')}</button>
-          </div>
-        )}
-
-        {/* Step 3: Connect APIs */}
-        {step === 3 && (
-          <div>
-            <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8, color: '#ffffff' }}>Connect Your APIs</h2>
-            <p style={{ color: '#666666', marginBottom: 32, fontSize: 14 }}>
-              Select which API providers to link to your Rook subscription. You can add more later.
-            </p>
-            {providers.map(p => (
-              <div key={p.slug} onClick={() => toggleProvider(p.slug)} style={{
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                background: selectedProviders.includes(p.slug) ? '#222222' : '#1a1a1a',
-                borderRadius: 12, padding: 20, marginBottom: 8, cursor: 'pointer',
-                border: selectedProviders.includes(p.slug) ? '2px solid #ffffff' : '1px solid #2a2a2a',
-                transition: 'all 0.3s ease',
-              }}>
-                <div>
-                  <span style={{ fontWeight: 600, color: '#ffffff' }}>{p.name}</span>
-                  <span style={{ marginLeft: 8, color: '#666666', fontSize: 13 }}>{p.slug}</span>
-                </div>
-                <div style={{
-                  width: 24, height: 24, borderRadius: 6,
-                  background: selectedProviders.includes(p.slug) ? '#ffffff' : 'transparent',
-                  border: selectedProviders.includes(p.slug) ? 'none' : '2px solid #666666',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: '#0a0a0a', fontSize: 14, fontWeight: 700,
-                }}>{selectedProviders.includes(p.slug) ? '✓' : ''}</div>
-              </div>
-            ))}
-            <button style={{ ...btnStyle, marginTop: 16 }} onClick={handleProvidersComplete} disabled={loading || selectedProviders.length === 0}>
-              {loading ? 'Connecting...' : `Connect ${selectedProviders.length} Provider${selectedProviders.length !== 1 ? 's' : ''}`}
-            </button>
-            {selectedProviders.length === 0 && <p style={{ color: '#666666', fontSize: 12, textAlign: 'center', marginTop: 8 }}>Select at least one provider to continue</p>}
           </div>
         )}
       </div>
