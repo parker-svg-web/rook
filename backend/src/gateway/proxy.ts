@@ -57,24 +57,7 @@ export async function proxyCall(ctx: GatewayContext): Promise<GatewayResponse> {
       'Subscription is not active', 'SUBSCRIPTION_INACTIVE', startTime);
   }
 
-  // 3. Verify this provider is linked to the subscription
-  const providerDb = db.prepare('SELECT id FROM api_providers WHERE slug = ?').get(providerSlug) as any;
-  if (!providerDb) {
-    return errorResponse(requestId, providerSlug, operation,
-      `Provider '${providerSlug}' not configured`, 'PROVIDER_NOT_CONFIGURED', startTime);
-  }
-
-  const subApi = db.prepare(
-    'SELECT * FROM subscription_apis WHERE subscription_id = ? AND provider_id = ? AND is_active = 1'
-  ).get(subscriptionId, providerDb.id) as any;
-
-  if (!subApi) {
-    return errorResponse(requestId, providerSlug, operation,
-      `Provider '${providerSlug}' is not linked to your subscription. Link it in settings first.`,
-      'PROVIDER_NOT_LINKED', startTime);
-  }
-
-  // 4. Estimate credits needed
+  // 3. Estimate credits needed
   const estimatedCredits = provider.estimateCredits(params);
   
   // 5. Check pool status
