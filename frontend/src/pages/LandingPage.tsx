@@ -66,7 +66,7 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
         </p>
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', alignItems: 'center' }}>
           <button onClick={onGetStarted} className="btn-primary" style={{ background: '#ffffff', border: 'none', borderRadius: 12, padding: '18px 44px', color: '#0a0a0a', fontWeight: 600, fontSize: 17 }}>
-            Start Free Trial
+            Get Started
           </button>
           <a href="#pricing" className="btn-ghost" style={{ background: 'transparent', border: '1px solid #2a2a2a', borderRadius: 12, padding: '17px 44px', color: '#a0a0a0', fontWeight: 500, fontSize: 17, textDecoration: 'none', display: 'inline-block' }}>
             View Plans
@@ -107,8 +107,8 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
         <p style={{ textAlign: 'center', color: '#666666', marginBottom: 56, fontSize: 16 }}>Start small, scale up. All plans include our core platform.</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, alignItems: 'start' }}>
           {[
-            { name: 'Starter', price: '$500', period: '/month', credits: '100K', apis: '5 APIs', desc: 'Perfect for small teams getting started with unified API access.', features: ['100K shared credits/mo', 'Up to 5 API providers', 'Usage analytics dashboard', 'Email support', 'Auto-refill enabled'], cta: 'Start Free Trial', popular: false },
-            { name: 'Growth', price: '$2,000', period: '/month', credits: '1M', apis: '15 APIs', desc: 'For scaling companies that need more providers and higher capacity.', features: ['1M shared credits/mo', 'Up to 15 API providers', 'Advanced analytics', 'Priority support', 'Annual 20% discount', 'Team member management'], cta: 'Start Free Trial', popular: true },
+            { name: 'Starter', price: '$500', period: '/month', credits: '100K', apis: '5 APIs', desc: 'Perfect for small teams getting started with unified API access.', features: ['100K shared credits/mo', 'Up to 5 API providers', 'Usage analytics dashboard', 'Email support', 'Auto-refill enabled'], cta: 'Get Started', popular: false },
+            { name: 'Growth', price: '$2,000', period: '/month', credits: '1M', apis: '15 APIs', desc: 'For scaling companies that need more providers and higher capacity.', features: ['1M shared credits/mo', 'Up to 15 API providers', 'Advanced analytics', 'Priority support', 'Annual 20% discount', 'Team member management'], cta: 'Get Started', popular: true },
             { name: 'Enterprise', price: 'Custom', period: '', credits: 'Custom', apis: 'Unlimited', desc: 'For large organizations with custom provider requirements.', features: ['Custom credit pool', 'Unlimited API providers', 'Dedicated account manager', 'Custom integrations', 'SLA guarantees', 'Volume discounts'], cta: 'Contact Sales', popular: false },
           ].map((tier, i) => (
             <div key={tier.name} className={tier.popular ? 'popular-card' : 'pricing-card slide-in'} style={{
