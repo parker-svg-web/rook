@@ -6,6 +6,20 @@ interface Props {
   error: string;
 }
 
+function RookLogo({ size = 32 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="3" width="16" height="3" rx="0.5" fill="#111" />
+      <rect x="5" y="6" width="6" height="4" rx="1" fill="#111" />
+      <rect x="13" y="6" width="6" height="4" rx="1" fill="#111" />
+      <path d="M4 10h16v2H4z" fill="#111" />
+      <path d="M3 12h18v1H3z" fill="#111" />
+      <rect x="6" y="13" width="12" height="8" rx="1.5" fill="#111" />
+      <rect x="9" y="15" width="6" height="3" rx="0.5" fill="white" />
+    </svg>
+  );
+}
+
 export default function LoginPage({ onLogin, onRegister, error }: Props) {
   const [isRegister, setIsRegister] = useState(false);
   const [email, setEmail] = useState('');
@@ -30,24 +44,28 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
+      background: '#ffffff',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontFamily: 'system-ui, -apple-system, sans-serif',
+      fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
     }}>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       <div style={{
-        background: '#1e293b',
+        background: '#ffffff',
         borderRadius: 16,
         padding: 48,
         width: 400,
-        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)',
-        border: '1px solid #334155',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.04)',
+        border: '1px solid #e2e8f0',
       }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <h1 style={{ color: '#38bdf8', fontSize: 32, fontWeight: 700, margin: 0 }}>
-            Rook
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 8 }}>
+            <RookLogo size={32} />
+            <h1 style={{ color: '#111', fontSize: 28, fontWeight: 700, margin: 0 }}>
+              Rook
+            </h1>
+          </div>
           <p style={{ color: '#64748b', marginTop: 8, fontSize: 14 }}>
             Telecom for your APIs
           </p>
@@ -55,7 +73,7 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', color: '#94a3b8', marginBottom: 6, fontSize: 14, fontWeight: 500 }}>
+            <label style={{ display: 'block', color: '#333', marginBottom: 6, fontSize: 14, fontWeight: 500 }}>
               Email
             </label>
             <input
@@ -67,19 +85,22 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
                 width: '100%',
                 padding: '12px 16px',
                 borderRadius: 8,
-                border: '1px solid #334155',
-                background: '#0f172a',
-                color: '#f1f5f9',
+                border: '1px solid #d1d5db',
+                background: '#ffffff',
+                color: '#111',
                 fontSize: 14,
                 outline: 'none',
                 boxSizing: 'border-box',
+                transition: 'border-color 0.2s ease',
               }}
+              onFocus={e => e.target.style.borderColor = '#111'}
+              onBlur={e => e.target.style.borderColor = '#d1d5db'}
               placeholder="you@company.com"
             />
           </div>
 
           <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', color: '#94a3b8', marginBottom: 6, fontSize: 14, fontWeight: 500 }}>
+            <label style={{ display: 'block', color: '#333', marginBottom: 6, fontSize: 14, fontWeight: 500 }}>
               Password
             </label>
             <input
@@ -91,20 +112,23 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
                 width: '100%',
                 padding: '12px 16px',
                 borderRadius: 8,
-                border: '1px solid #334155',
-                background: '#0f172a',
-                color: '#f1f5f9',
+                border: '1px solid #d1d5db',
+                background: '#ffffff',
+                color: '#111',
                 fontSize: 14,
                 outline: 'none',
                 boxSizing: 'border-box',
+                transition: 'border-color 0.2s ease',
               }}
+              onFocus={e => e.target.style.borderColor = '#111'}
+              onBlur={e => e.target.style.borderColor = '#d1d5db'}
               placeholder="••••••••"
             />
           </div>
 
           {isRegister && (
             <div style={{ marginBottom: 16 }}>
-              <label style={{ display: 'block', color: '#94a3b8', marginBottom: 6, fontSize: 14, fontWeight: 500 }}>
+              <label style={{ display: 'block', color: '#333', marginBottom: 6, fontSize: 14, fontWeight: 500 }}>
                 Company Name
               </label>
               <input
@@ -116,13 +140,16 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
                   width: '100%',
                   padding: '12px 16px',
                   borderRadius: 8,
-                  border: '1px solid #334155',
-                  background: '#0f172a',
-                  color: '#f1f5f9',
+                  border: '1px solid #d1d5db',
+                  background: '#ffffff',
+                  color: '#111',
                   fontSize: 14,
                   outline: 'none',
                   boxSizing: 'border-box',
+                  transition: 'border-color 0.2s ease',
                 }}
+                onFocus={e => e.target.style.borderColor = '#111'}
+                onBlur={e => e.target.style.borderColor = '#d1d5db'}
                 placeholder="Acme Corp"
               />
             </div>
@@ -142,13 +169,14 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
               padding: '12px 16px',
               borderRadius: 8,
               border: 'none',
-              background: loading ? '#1d4ed8' : '#2563eb',
+              background: loading ? '#333' : '#111',
               color: 'white',
               fontSize: 15,
               fontWeight: 600,
               cursor: loading ? 'wait' : 'pointer',
               opacity: loading ? 0.7 : 1,
               marginTop: 8,
+              transition: 'all 0.2s ease',
             }}
           >
             {loading ? 'Please wait...' : isRegister ? 'Create Account' : 'Sign In'}
@@ -161,10 +189,11 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
             style={{
               background: 'none',
               border: 'none',
-              color: '#38bdf8',
+              color: '#111',
               cursor: 'pointer',
               fontSize: 13,
               textDecoration: 'underline',
+              fontWeight: 500,
             }}
           >
             {isRegister ? 'Already have an account? Sign in' : 'New here? Create an account'}
