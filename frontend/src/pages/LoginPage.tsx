@@ -7,6 +7,21 @@ interface Props {
   error: string;
 }
 
+const styles = `
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .auth-card { animation: fadeInUp 0.5s ease-out; }
+  .auth-input { transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .auth-input:focus { border-color: #000000 !important; box-shadow: 0 0 0 3px rgba(0,0,0,0.08) !important; outline: none !important; }
+  .auth-btn { transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer; }
+  .auth-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+  .auth-btn:active { transform: translateY(0); }
+  .auth-toggle { transition: color 0.2s ease; cursor: pointer; }
+  .auth-toggle:hover { color: #1f2937 !important; }
+`;
+
 export default function LoginPage({ onLogin, onRegister, error }: Props) {
   const [isRegister, setIsRegister] = useState(false);
   const [email, setEmail] = useState('');
@@ -31,33 +46,34 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#ffffff',
+      background: '#f8f9fa',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
     }}>
+      <style>{styles}</style>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-      <div style={{
+      <div className="auth-card" style={{
         background: '#ffffff',
-        borderRadius: 16,
+        borderRadius: 20,
         padding: 48,
         width: 400,
-        boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.04)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04)',
         border: '1px solid #e5e7eb',
       }}>
-        <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 8 }}>
-            <RookLogoText size={28} />
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+            <RookLogoText size={32} />
           </div>
-          <p style={{ color: '#9ca3af', marginTop: 8, fontSize: 14 }}>
+          <p style={{ color: '#9ca3af', marginTop: 0, fontSize: 14, fontWeight: 400 }}>
             Telecom for your APIs
           </p>
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', color: '#1f2937', marginBottom: 6, fontSize: 14, fontWeight: 500 }}>
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ display: 'block', color: '#1f2937', marginBottom: 8, fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }}>
               Email
             </label>
             <input
@@ -65,26 +81,24 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
+              className="auth-input"
               style={{
                 width: '100%',
-                padding: '12px 16px',
-                borderRadius: 8,
+                padding: '14px 16px',
+                borderRadius: 10,
                 border: '1px solid #d1d5db',
                 background: '#ffffff',
                 color: '#111827',
                 fontSize: 14,
-                outline: 'none',
                 boxSizing: 'border-box',
-                transition: 'border-color 0.2s ease',
+                fontFamily: 'Inter, sans-serif',
               }}
-              onFocus={e => e.target.style.borderColor = '#000000'}
-              onBlur={e => e.target.style.borderColor = '#d1d5db'}
               placeholder="you@company.com"
             />
           </div>
 
-          <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', color: '#1f2937', marginBottom: 6, fontSize: 14, fontWeight: 500 }}>
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ display: 'block', color: '#1f2937', marginBottom: 8, fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }}>
               Password
             </label>
             <input
@@ -92,27 +106,25 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
+              className="auth-input"
               style={{
                 width: '100%',
-                padding: '12px 16px',
-                borderRadius: 8,
+                padding: '14px 16px',
+                borderRadius: 10,
                 border: '1px solid #d1d5db',
                 background: '#ffffff',
                 color: '#111827',
                 fontSize: 14,
-                outline: 'none',
                 boxSizing: 'border-box',
-                transition: 'border-color 0.2s ease',
+                fontFamily: 'Inter, sans-serif',
               }}
-              onFocus={e => e.target.style.borderColor = '#000000'}
-              onBlur={e => e.target.style.borderColor = '#d1d5db'}
               placeholder="••••••••"
             />
           </div>
 
           {isRegister && (
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ display: 'block', color: '#1f2937', marginBottom: 6, fontSize: 14, fontWeight: 500 }}>
+            <div style={{ marginBottom: 20 }}>
+              <label style={{ display: 'block', color: '#1f2937', marginBottom: 8, fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }}>
                 Company Name
               </label>
               <input
@@ -120,64 +132,63 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
                 value={company}
                 onChange={e => setCompany(e.target.value)}
                 required
+                className="auth-input"
                 style={{
                   width: '100%',
-                  padding: '12px 16px',
-                  borderRadius: 8,
+                  padding: '14px 16px',
+                  borderRadius: 10,
                   border: '1px solid #d1d5db',
                   background: '#ffffff',
                   color: '#111827',
                   fontSize: 14,
-                  outline: 'none',
                   boxSizing: 'border-box',
-                  transition: 'border-color 0.2s ease',
+                  fontFamily: 'Inter, sans-serif',
                 }}
-                onFocus={e => e.target.style.borderColor = '#000000'}
-                onBlur={e => e.target.style.borderColor = '#d1d5db'}
                 placeholder="Acme Corp"
               />
             </div>
           )}
 
           {displayError && (
-            <p style={{ color: '#ef4444', fontSize: 13, marginBottom: 12, marginTop: 0 }}>
-              {displayError}
-            </p>
+            <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 10, padding: '12px 16px', marginBottom: 16 }}>
+              <p style={{ color: '#dc2626', fontSize: 13, margin: 0 }}>{displayError}</p>
+            </div>
           )}
 
           <button
             type="submit"
             disabled={loading}
+            className="auth-btn"
             style={{
               width: '100%',
-              padding: '12px 16px',
-              borderRadius: 8,
+              padding: '14px 16px',
+              borderRadius: 10,
               border: 'none',
               background: loading ? '#1f2937' : '#000000',
               color: 'white',
               fontSize: 15,
               fontWeight: 600,
-              cursor: loading ? 'wait' : 'pointer',
               opacity: loading ? 0.7 : 1,
-              marginTop: 8,
-              transition: 'all 0.2s ease',
+              marginTop: 4,
+              letterSpacing: '0.01em',
+              fontFamily: 'Inter, sans-serif',
             }}
           >
             {loading ? 'Please wait...' : isRegister ? 'Create Account' : 'Sign In'}
           </button>
         </form>
 
-        <div style={{ marginTop: 20, textAlign: 'center' }}>
+        <div style={{ marginTop: 24, textAlign: 'center' }}>
           <button
             onClick={() => { setIsRegister(!isRegister); setLocalError(''); }}
+            className="auth-toggle"
             style={{
               background: 'none',
               border: 'none',
-              color: '#000000',
-              cursor: 'pointer',
+              color: '#9ca3af',
               fontSize: 13,
-              textDecoration: 'underline',
               fontWeight: 500,
+              fontFamily: 'Inter, sans-serif',
             }}
           >
             {isRegister ? 'Already have an account? Sign in' : 'New here? Create an account'}

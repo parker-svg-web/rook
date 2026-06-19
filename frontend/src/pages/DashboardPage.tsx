@@ -31,12 +31,12 @@ export default function DashboardPage({ data, onLogout }: Props) {
       justifyContent: 'space-between',
       alignItems: 'center',
     },
-    headerRight: { display: 'flex', alignItems: 'center', gap: 16 },
+    headerRight: { display: 'flex', alignItems: 'center', gap: 20 },
     badge: {
       background: '#f8f9fa',
       border: '1px solid #e5e7eb',
       borderRadius: 20,
-      padding: '4px 12px',
+      padding: '5px 14px',
       fontSize: 13,
       color: '#6b7280',
       fontWeight: 500,
@@ -44,47 +44,60 @@ export default function DashboardPage({ data, onLogout }: Props) {
     logoutBtn: {
       background: 'none',
       border: '1px solid #d1d5db',
-      borderRadius: 8,
-      padding: '8px 16px',
+      borderRadius: 10,
+      padding: '9px 18px',
       color: '#6b7280',
       cursor: 'pointer',
       fontSize: 13,
       fontWeight: 500,
-      transition: 'all 0.2s ease',
+      transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      fontFamily: 'Inter, sans-serif',
     },
-    main: { maxWidth: 1200, margin: '0 auto', padding: '24px 32px' },
-    grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, marginBottom: 24 },
+    main: { maxWidth: 1200, margin: '0 auto', padding: '28px 32px' },
+    grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 28 },
     card: {
       background: '#ffffff',
-      borderRadius: 12,
+      borderRadius: 16,
       padding: 24,
       border: '1px solid #e5e7eb',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.03)',
+      transition: 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease',
     },
-    cardTitle: { fontSize: 13, fontWeight: 600, color: '#9ca3af', margin: '0 0 8px 0', textTransform: 'uppercase' as const, letterSpacing: '0.05em' },
-    statValue: { fontSize: 28, fontWeight: 700, color: '#111827', margin: 0 },
-    statSub: { fontSize: 13, color: '#6b7280', margin: '4px 0 0 0' },
+    cardTitle: { fontSize: 12, fontWeight: 600, color: '#9ca3af', margin: '0 0 10px 0', textTransform: 'uppercase' as const, letterSpacing: '0.08em' },
+    statValue: { fontSize: 30, fontWeight: 700, color: '#111827', margin: 0, letterSpacing: '-0.5px' },
+    statSub: { fontSize: 13, color: '#6b7280', margin: '6px 0 0 0' },
     progressBar: {
       width: '100%',
       height: 8,
       background: '#e5e7eb',
       borderRadius: 4,
-      marginTop: 12,
+      marginTop: 14,
       overflow: 'hidden',
     },
     table: { width: '100%', borderCollapse: 'collapse' as const, fontSize: 14 },
-    th: { textAlign: 'left' as const, padding: '10px 12px', color: '#9ca3af', fontWeight: 600, borderBottom: '1px solid #e5e7eb', fontSize: 12, textTransform: 'uppercase' as const, letterSpacing: '0.05em' },
-    td: { padding: '10px 12px', borderBottom: '1px solid #e5e7eb', color: '#1f2937' },
+    th: { textAlign: 'left' as const, padding: '12px 12px', color: '#9ca3af', fontWeight: 600, borderBottom: '1px solid #e5e7eb', fontSize: 12, textTransform: 'uppercase' as const, letterSpacing: '0.08em' },
+    td: { padding: '14px 12px', borderBottom: '1px solid #e5e7eb', color: '#1f2937' },
+    sectionTitle: { fontSize: 16, fontWeight: 600, margin: '0 0 20px 0', color: '#111827', letterSpacing: '-0.3px' },
+  };
+
+  const cardHover = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.transform = 'translateY(-2px)';
+    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.06)';
+  };
+  const cardLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.transform = '';
+    e.currentTarget.style.boxShadow = '';
   };
 
   const alertBadgeStyle = (type: string) => ({
     display: 'inline-block' as const,
-    padding: '3px 8px',
-    borderRadius: 4,
+    padding: '4px 10px',
+    borderRadius: 6,
     fontSize: 11,
     fontWeight: 600,
     background: '#f8f9fa',
     color: '#111827',
+    letterSpacing: '0.03em' as const,
   });
 
   const progressFillStyle = (pct: number) => ({
@@ -92,18 +105,18 @@ export default function DashboardPage({ data, onLogout }: Props) {
     borderRadius: 4,
     width: `${Math.min(pct, 100)}%`,
     background: pct > 80 ? '#ef4444' : pct > 50 ? '#f59e0b' : '#22c55e',
-    transition: 'width 0.3s ease',
+    transition: 'width 0.5s ease',
   });
 
   return (
     <div style={styles.container}>
       <header style={styles.header}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <RookLogoText size={20} />
           <span style={styles.badge}>{subscription.plan_name} Plan</span>
         </div>
         <div style={styles.headerRight}>
-          <span style={{ color: '#6b7280', fontSize: 13 }}>{user.company_name}</span>
+          <span style={{ color: '#6b7280', fontSize: 13, fontWeight: 500 }}>{user.company_name}</span>
           <span style={{ color: '#9ca3af', fontSize: 13 }}>{user.email}</span>
           <button style={styles.logoutBtn} onClick={onLogout}
             onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = '#000000'; (e.target as HTMLElement).style.color = '#000000'; }}
@@ -115,7 +128,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
       <main style={styles.main}>
         {/* Stats Grid */}
         <div style={styles.grid}>
-          <div style={styles.card}>
+          <div style={styles.card} onMouseEnter={cardHover} onMouseLeave={cardLeave}>
             <p style={styles.cardTitle}>Credit Pool</p>
             <p style={styles.statValue}>{formatNumber(subscription.credits_available)}</p>
             <p style={styles.statSub}>
@@ -126,7 +139,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
             </div>
           </div>
 
-          <div style={styles.card}>
+          <div style={styles.card} onMouseEnter={cardHover} onMouseLeave={cardLeave}>
             <p style={styles.cardTitle}>Monthly Spend</p>
             <p style={styles.statValue}>${subscription.monthly_fee.toLocaleString()}</p>
             <p style={styles.statSub}>
@@ -135,9 +148,9 @@ export default function DashboardPage({ data, onLogout }: Props) {
             </p>
           </div>
 
-          <div style={styles.card}>
+          <div style={styles.card} onMouseEnter={cardHover} onMouseLeave={cardLeave}>
             <p style={styles.cardTitle}>Billing Cycle</p>
-            <p style={{ fontSize: 14, color: '#6b7280', margin: 0 }}>
+            <p style={{ fontSize: 14, color: '#6b7280', margin: 0, lineHeight: 1.5 }}>
               {subscription.billing_cycle_start || 'N/A'} &ndash; {subscription.billing_cycle_end || 'N/A'}
             </p>
             <p style={styles.statSub}>
@@ -149,12 +162,12 @@ export default function DashboardPage({ data, onLogout }: Props) {
         </div>
 
         {/* Linked APIs */}
-        <div style={{ ...styles.card, marginBottom: 24 }}>
-          <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 16px 0', color: '#111827' }}>
+        <div style={{ ...styles.card, marginBottom: 28, padding: 28 }}>
+          <h2 style={styles.sectionTitle}>
             Linked APIs ({apis.length}/{subscription.max_apis} max)
           </h2>
           {apis.length === 0 ? (
-            <p style={{ color: '#6b7280' }}>No APIs linked yet.</p>
+            <p style={{ color: '#6b7280', fontSize: 14 }}>No APIs linked yet.</p>
           ) : (
             <table style={styles.table}>
               <thead>
@@ -168,7 +181,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
               </thead>
               <tbody>
                 {apis.map((api, i) => (
-                  <tr key={i}>
+                  <tr key={i} style={{ transition: 'background 0.2s ease' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#f8f9fa'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
                     <td style={styles.td}>
                       <span style={{ fontWeight: 600 }}>{api.provider_name}</span>
                     </td>
@@ -176,16 +189,17 @@ export default function DashboardPage({ data, onLogout }: Props) {
                     <td style={styles.td}>{formatNumber(api.allocated_credits)}</td>
                     <td style={styles.td}>{formatNumber(api.credits_used)}</td>
                     <td style={styles.td}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                         <div style={{ width: 80, height: 6, background: '#e5e7eb', borderRadius: 3, overflow: 'hidden' }}>
                           <div style={{
                             height: '100%',
                             width: `${Math.min(api.utilization_pct, 100)}%`,
                             background: api.utilization_pct > 80 ? '#ef4444' : api.utilization_pct > 50 ? '#f59e0b' : '#22c55e',
                             borderRadius: 3,
+                            transition: 'width 0.3s ease',
                           }} />
                         </div>
-                        <span style={{ fontSize: 12, color: '#6b7280' }}>{api.utilization_pct}%</span>
+                        <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 500 }}>{api.utilization_pct}%</span>
                       </div>
                     </td>
                   </tr>
@@ -196,12 +210,10 @@ export default function DashboardPage({ data, onLogout }: Props) {
         </div>
 
         {/* Recent Usage */}
-        <div style={{ ...styles.card, marginBottom: 24 }}>
-          <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 16px 0', color: '#111827' }}>
-            Recent Usage (Last 30 Days)
-          </h2>
+        <div style={{ ...styles.card, marginBottom: 28, padding: 28 }}>
+          <h2 style={styles.sectionTitle}>Recent Usage (Last 30 Days)</h2>
           {recent_usage.length === 0 ? (
-            <p style={{ color: '#6b7280' }}>No usage data yet.</p>
+            <p style={{ color: '#6b7280', fontSize: 14 }}>No usage data yet.</p>
           ) : (
             <table style={styles.table}>
               <thead>
@@ -213,7 +225,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
               </thead>
               <tbody>
                 {recent_usage.slice(0, 15).map((u, i) => (
-                  <tr key={i}>
+                  <tr key={i} style={{ transition: 'background 0.2s ease' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#f8f9fa'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
                     <td style={styles.td}>{u.date}</td>
                     <td style={styles.td}>{u.provider_name}</td>
                     <td style={styles.td}>{u.credits_used.toLocaleString()}</td>
@@ -226,15 +238,13 @@ export default function DashboardPage({ data, onLogout }: Props) {
 
         {/* Alerts */}
         {alerts.length > 0 && (
-          <div style={styles.card}>
-            <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 16px 0', color: '#111827' }}>
-              Active Alerts
-            </h2>
+          <div style={{ ...styles.card, padding: 28 }}>
+            <h2 style={styles.sectionTitle}>Active Alerts</h2>
             {alerts.map((a: any, i: number) => (
-              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #e5e7eb' }}>
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #e5e7eb', transition: 'background 0.2s ease' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#f8f9fa'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
                 <div>
                   <span style={alertBadgeStyle(a.type)}>{a.type.replace('_', ' ')}</span>
-                  <span style={{ marginLeft: 8, color: '#6b7280', fontSize: 13 }}>{a.message || ''}</span>
+                  <span style={{ marginLeft: 10, color: '#6b7280', fontSize: 13 }}>{a.message || ''}</span>
                 </div>
                 <span style={{ fontSize: 12, color: '#9ca3af' }}>{a.triggered_at || ''}</span>
               </div>
