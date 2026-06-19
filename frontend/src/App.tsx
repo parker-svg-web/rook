@@ -141,9 +141,9 @@ export default function App() {
 
   if (!dashboard) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#0f172a', color: '#94a3b8' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'system-ui, sans-serif', background: '#ffffff', color: '#6b7280' }}>
         <div>
-          <h2 style={{ color: '#38bdf8' }}>Loading Rook...</h2>
+          <h2 style={{ color: '#000000' }}>Loading Rook...</h2>
           {error && <p style={{ color: '#ef4444' }}>{error}</p>}
         </div>
       </div>

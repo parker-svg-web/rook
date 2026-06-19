@@ -1,24 +1,11 @@
 import React from 'react';
 import type { DashboardData } from '../App';
+import RookLogoText from '../components/RookLogoText';
 
 function formatNumber(n: number): string {
   if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
   if (n >= 1_000) return (n / 1_000).toFixed(1) + 'K';
   return n.toLocaleString();
-}
-
-function RookLogo({ size = 22 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="3" width="16" height="3" rx="0.5" fill="#111" />
-      <rect x="5" y="6" width="6" height="4" rx="1" fill="#111" />
-      <rect x="13" y="6" width="6" height="4" rx="1" fill="#111" />
-      <path d="M4 10h16v2H4z" fill="#111" />
-      <path d="M3 12h18v1H3z" fill="#111" />
-      <rect x="6" y="13" width="12" height="8" rx="1.5" fill="#111" />
-      <rect x="9" y="15" width="6" height="3" rx="0.5" fill="white" />
-    </svg>
-  );
 }
 
 interface Props {
@@ -34,11 +21,11 @@ export default function DashboardPage({ data, onLogout }: Props) {
       minHeight: '100vh',
       background: '#f8f9fa',
       fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
-      color: '#111',
+      color: '#111827',
     },
     header: {
       background: '#ffffff',
-      borderBottom: '1px solid #e2e8f0',
+      borderBottom: '1px solid #e5e7eb',
       padding: '16px 32px',
       display: 'flex',
       justifyContent: 'space-between',
@@ -46,12 +33,12 @@ export default function DashboardPage({ data, onLogout }: Props) {
     },
     headerRight: { display: 'flex', alignItems: 'center', gap: 16 },
     badge: {
-      background: '#f1f5f9',
-      border: '1px solid #e2e8f0',
+      background: '#f8f9fa',
+      border: '1px solid #e5e7eb',
       borderRadius: 20,
       padding: '4px 12px',
       fontSize: 13,
-      color: '#64748b',
+      color: '#6b7280',
       fontWeight: 500,
     },
     logoutBtn: {
@@ -59,7 +46,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
       border: '1px solid #d1d5db',
       borderRadius: 8,
       padding: '8px 16px',
-      color: '#64748b',
+      color: '#6b7280',
       cursor: 'pointer',
       fontSize: 13,
       fontWeight: 500,
@@ -71,23 +58,23 @@ export default function DashboardPage({ data, onLogout }: Props) {
       background: '#ffffff',
       borderRadius: 12,
       padding: 24,
-      border: '1px solid #e2e8f0',
+      border: '1px solid #e5e7eb',
       boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
     },
-    cardTitle: { fontSize: 13, fontWeight: 600, color: '#64748b', margin: '0 0 8px 0', textTransform: 'uppercase' as const, letterSpacing: '0.05em' },
-    statValue: { fontSize: 28, fontWeight: 700, color: '#111', margin: 0 },
-    statSub: { fontSize: 13, color: '#64748b', margin: '4px 0 0 0' },
+    cardTitle: { fontSize: 13, fontWeight: 600, color: '#9ca3af', margin: '0 0 8px 0', textTransform: 'uppercase' as const, letterSpacing: '0.05em' },
+    statValue: { fontSize: 28, fontWeight: 700, color: '#111827', margin: 0 },
+    statSub: { fontSize: 13, color: '#6b7280', margin: '4px 0 0 0' },
     progressBar: {
       width: '100%',
       height: 8,
-      background: '#e2e8f0',
+      background: '#e5e7eb',
       borderRadius: 4,
       marginTop: 12,
       overflow: 'hidden',
     },
     table: { width: '100%', borderCollapse: 'collapse' as const, fontSize: 14 },
-    th: { textAlign: 'left' as const, padding: '10px 12px', color: '#64748b', fontWeight: 600, borderBottom: '1px solid #e2e8f0', fontSize: 12, textTransform: 'uppercase' as const, letterSpacing: '0.05em' },
-    td: { padding: '10px 12px', borderBottom: '1px solid #e2e8f0', color: '#333' },
+    th: { textAlign: 'left' as const, padding: '10px 12px', color: '#9ca3af', fontWeight: 600, borderBottom: '1px solid #e5e7eb', fontSize: 12, textTransform: 'uppercase' as const, letterSpacing: '0.05em' },
+    td: { padding: '10px 12px', borderBottom: '1px solid #e5e7eb', color: '#1f2937' },
   };
 
   const alertBadgeStyle = (type: string) => ({
@@ -96,8 +83,8 @@ export default function DashboardPage({ data, onLogout }: Props) {
     borderRadius: 4,
     fontSize: 11,
     fontWeight: 600,
-    background: type === 'low_credits' ? '#f0f0f0' : type === 'refill' ? '#f0f0f0' : '#f0f0f0',
-    color: '#111',
+    background: '#f8f9fa',
+    color: '#111827',
   });
 
   const progressFillStyle = (pct: number) => ({
@@ -112,16 +99,15 @@ export default function DashboardPage({ data, onLogout }: Props) {
     <div style={styles.container}>
       <header style={styles.header}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <RookLogo size={22} />
-          <h1 style={{ fontSize: 20, fontWeight: 700, color: '#111', margin: 0 }}>Rook</h1>
+          <RookLogoText size={20} />
           <span style={styles.badge}>{subscription.plan_name} Plan</span>
         </div>
         <div style={styles.headerRight}>
-          <span style={{ color: '#64748b', fontSize: 13 }}>{user.company_name}</span>
-          <span style={{ color: '#94a3b8', fontSize: 13 }}>{user.email}</span>
+          <span style={{ color: '#6b7280', fontSize: 13 }}>{user.company_name}</span>
+          <span style={{ color: '#9ca3af', fontSize: 13 }}>{user.email}</span>
           <button style={styles.logoutBtn} onClick={onLogout}
-            onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = '#111'; (e.target as HTMLElement).style.color = '#111'; }}
-            onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = '#d1d5db'; (e.target as HTMLElement).style.color = '#64748b'; }}
+            onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = '#000000'; (e.target as HTMLElement).style.color = '#000000'; }}
+            onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = '#d1d5db'; (e.target as HTMLElement).style.color = '#6b7280'; }}
           >Logout</button>
         </div>
       </header>
@@ -151,7 +137,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
 
           <div style={styles.card}>
             <p style={styles.cardTitle}>Billing Cycle</p>
-            <p style={{ fontSize: 14, color: '#64748b', margin: 0 }}>
+            <p style={{ fontSize: 14, color: '#6b7280', margin: 0 }}>
               {subscription.billing_cycle_start || 'N/A'} &ndash; {subscription.billing_cycle_end || 'N/A'}
             </p>
             <p style={styles.statSub}>
@@ -164,11 +150,11 @@ export default function DashboardPage({ data, onLogout }: Props) {
 
         {/* Linked APIs */}
         <div style={{ ...styles.card, marginBottom: 24 }}>
-          <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 16px 0', color: '#111' }}>
+          <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 16px 0', color: '#111827' }}>
             Linked APIs ({apis.length}/{subscription.max_apis} max)
           </h2>
           {apis.length === 0 ? (
-            <p style={{ color: '#64748b' }}>No APIs linked yet.</p>
+            <p style={{ color: '#6b7280' }}>No APIs linked yet.</p>
           ) : (
             <table style={styles.table}>
               <thead>
@@ -191,7 +177,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
                     <td style={styles.td}>{formatNumber(api.credits_used)}</td>
                     <td style={styles.td}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <div style={{ width: 80, height: 6, background: '#e2e8f0', borderRadius: 3, overflow: 'hidden' }}>
+                        <div style={{ width: 80, height: 6, background: '#e5e7eb', borderRadius: 3, overflow: 'hidden' }}>
                           <div style={{
                             height: '100%',
                             width: `${Math.min(api.utilization_pct, 100)}%`,
@@ -199,7 +185,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
                             borderRadius: 3,
                           }} />
                         </div>
-                        <span style={{ fontSize: 12, color: '#64748b' }}>{api.utilization_pct}%</span>
+                        <span style={{ fontSize: 12, color: '#6b7280' }}>{api.utilization_pct}%</span>
                       </div>
                     </td>
                   </tr>
@@ -211,11 +197,11 @@ export default function DashboardPage({ data, onLogout }: Props) {
 
         {/* Recent Usage */}
         <div style={{ ...styles.card, marginBottom: 24 }}>
-          <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 16px 0', color: '#111' }}>
+          <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 16px 0', color: '#111827' }}>
             Recent Usage (Last 30 Days)
           </h2>
           {recent_usage.length === 0 ? (
-            <p style={{ color: '#64748b' }}>No usage data yet.</p>
+            <p style={{ color: '#6b7280' }}>No usage data yet.</p>
           ) : (
             <table style={styles.table}>
               <thead>
@@ -241,16 +227,16 @@ export default function DashboardPage({ data, onLogout }: Props) {
         {/* Alerts */}
         {alerts.length > 0 && (
           <div style={styles.card}>
-            <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 16px 0', color: '#111' }}>
+            <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 16px 0', color: '#111827' }}>
               Active Alerts
             </h2>
             {alerts.map((a: any, i: number) => (
-              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #e2e8f0' }}>
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #e5e7eb' }}>
                 <div>
                   <span style={alertBadgeStyle(a.type)}>{a.type.replace('_', ' ')}</span>
-                  <span style={{ marginLeft: 8, color: '#64748b', fontSize: 13 }}>{a.message || ''}</span>
+                  <span style={{ marginLeft: 8, color: '#6b7280', fontSize: 13 }}>{a.message || ''}</span>
                 </div>
-                <span style={{ fontSize: 12, color: '#94a3b8' }}>{a.triggered_at || ''}</span>
+                <span style={{ fontSize: 12, color: '#9ca3af' }}>{a.triggered_at || ''}</span>
               </div>
             ))}
           </div>
