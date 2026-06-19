@@ -24,11 +24,11 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
       {/* Hero */}
       <section style={{ maxWidth: 1000, margin: '0 auto', padding: '100px 48px', textAlign: 'center' }}>
         <h1 style={{ fontSize: 56, fontWeight: 800, lineHeight: 1.1, margin: '0 0 20px 0', background: 'linear-gradient(135deg, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-          API Credits,<br />One Simple Plan
+          Telecom for&nbsp;API.<br />One Simple Plan.
         </h1>
         <p style={{ fontSize: 20, color: '#94a3b8', maxWidth: 650, margin: '0 auto 40px', lineHeight: 1.6 }}>
-          Stop juggling dozens of API accounts, billing cycles, and credit top-ups. 
-          Rook bundles OpenAI, Twilio, Stripe, and more into one predictable monthly subscription.
+          You don't manage separate data plans for each carrier — so why manage separate API accounts? 
+          Rook bundles OpenAI, Twilio, Stripe, and more into one predictable monthly subscription. One provider, one bill, one place to manage it all.
         </p>
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
           <button onClick={onGetStarted} style={{ background: '#2563eb', border: 'none', borderRadius: 12, padding: '16px 40px', color: 'white', cursor: 'pointer', fontWeight: 600, fontSize: 18 }}>
@@ -50,12 +50,12 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
         <h2 style={{ textAlign: 'center', fontSize: 36, fontWeight: 700, marginBottom: 60, color: '#f1f5f9' }}>Why Rook?</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
           {[
-            { title: 'Single Bill', desc: 'One predictable monthly payment covers all your API services. No more reconciling 10+ invoices.', icon: '📄' },
-            { title: 'Credit Pooling', desc: 'Share credits across all APIs. Unused OpenAI credits automatically available for Twilio SMS.', icon: '💧' },
-            { title: 'Auto-Refill', desc: 'Never hit a wall mid-project. We auto-refill your pool when you\'re running low.', icon: '🔄' },
-            { title: 'Usage Analytics', desc: 'Real-time dashboard showing exactly which APIs are consuming credits and how fast.', icon: '📊' },
-            { title: 'Provider Management', desc: 'We negotiate volume discounts so you get better rates than going direct.', icon: '🤝' },
-            { title: 'Team Controls', desc: 'Per-team-member API keys, usage limits, and cost allocation across departments.', icon: '👥' },
+            { title: 'One Bill', desc: 'A single predictable monthly payment covers all your API services. Just like your mobile plan — but for your stack.', icon: '📄' },
+            { title: 'Credit Pooling', desc: 'Share credits across all APIs like a shared data bucket. Unused OpenAI credits automatically available for Twilio SMS.', icon: '💧' },
+            { title: 'Auto-Refill', desc: 'Never hit a wall mid-project. We auto-refill your credit pool when you\'re running low — no more surprise overage bills.', icon: '🔄' },
+            { title: 'Usage Dashboard', desc: 'Real-time dashboard showing exactly which APIs are consuming your credits and how fast, just like checking your data usage.', icon: '📊' },
+            { title: 'Volume Discounts', desc: 'We negotiate wholesale rates with providers so you get better per-unit pricing than going direct — savings built into every plan.', icon: '🤝' },
+            { title: 'Team Controls', desc: 'Per-team-member API keys, usage limits, and cost allocation across departments. Full visibility into who uses what.', icon: '👥' },
           ].map(f => (
             <div key={f.title} style={{ background: '#1e293b', borderRadius: 16, padding: 32, border: '1px solid #334155' }}>
               <div style={{ fontSize: 36, marginBottom: 16 }}>{f.icon}</div>
@@ -108,7 +108,7 @@ export default function LandingPage({ onGetStarted, onSignIn }: LandingPageProps
       {/* CTA */}
       <section style={{ maxWidth: 700, margin: '0 auto', padding: '80px 48px', textAlign: 'center' }}>
         <h2 style={{ fontSize: 36, fontWeight: 700, margin: '0 0 16px', color: '#f1f5f9' }}>Ready to simplify your API billing?</h2>
-        <p style={{ color: '#94a3b8', fontSize: 18, marginBottom: 32 }}>Join companies that cut their API management overhead by 80%.</p>
+        <p style={{ color: '#94a3b8', fontSize: 18, marginBottom: 32 }}>Join companies that treat their API stack like a simple phone plan — one provider, one predictable bill.</p>
         <button onClick={onGetStarted} style={{ background: '#2563eb', border: 'none', borderRadius: 12, padding: '16px 48px', color: 'white', cursor: 'pointer', fontWeight: 600, fontSize: 18 }}>
           Get Started Free
         </button>
