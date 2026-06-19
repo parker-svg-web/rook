@@ -19,13 +19,13 @@ export default function DashboardPage({ data, onLogout }: Props) {
   const styles: Record<string, React.CSSProperties> = {
     container: {
       minHeight: '100vh',
-      background: '#f8f9fa',
+      background: '#0a0a0a',
       fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
-      color: '#111827',
+      color: '#ffffff',
     },
     header: {
-      background: '#ffffff',
-      borderBottom: '1px solid #e5e7eb',
+      background: '#1a1a1a',
+      borderBottom: '1px solid #2a2a2a',
       padding: '16px 32px',
       display: 'flex',
       justifyContent: 'space-between',
@@ -33,20 +33,20 @@ export default function DashboardPage({ data, onLogout }: Props) {
     },
     headerRight: { display: 'flex', alignItems: 'center', gap: 20 },
     badge: {
-      background: '#f8f9fa',
-      border: '1px solid #e5e7eb',
+      background: '#0a0a0a',
+      border: '1px solid #2a2a2a',
       borderRadius: 20,
       padding: '5px 14px',
       fontSize: 13,
-      color: '#6b7280',
+      color: '#a0a0a0',
       fontWeight: 500,
     },
     logoutBtn: {
       background: 'none',
-      border: '1px solid #d1d5db',
+      border: '1px solid #2a2a2a',
       borderRadius: 10,
       padding: '9px 18px',
-      color: '#6b7280',
+      color: '#a0a0a0',
       cursor: 'pointer',
       fontSize: 13,
       fontWeight: 500,
@@ -56,33 +56,33 @@ export default function DashboardPage({ data, onLogout }: Props) {
     main: { maxWidth: 1200, margin: '0 auto', padding: '28px 32px' },
     grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 28 },
     card: {
-      background: '#ffffff',
+      background: '#1a1a1a',
       borderRadius: 16,
       padding: 24,
-      border: '1px solid #e5e7eb',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.03)',
+      border: '1px solid #2a2a2a',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
       transition: 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease',
     },
-    cardTitle: { fontSize: 12, fontWeight: 600, color: '#9ca3af', margin: '0 0 10px 0', textTransform: 'uppercase' as const, letterSpacing: '0.08em' },
-    statValue: { fontSize: 30, fontWeight: 700, color: '#111827', margin: 0, letterSpacing: '-0.5px' },
-    statSub: { fontSize: 13, color: '#6b7280', margin: '6px 0 0 0' },
+    cardTitle: { fontSize: 12, fontWeight: 600, color: '#666666', margin: '0 0 10px 0', textTransform: 'uppercase' as const, letterSpacing: '0.08em' },
+    statValue: { fontSize: 30, fontWeight: 700, color: '#ffffff', margin: 0, letterSpacing: '-0.5px' },
+    statSub: { fontSize: 13, color: '#a0a0a0', margin: '6px 0 0 0' },
     progressBar: {
       width: '100%',
       height: 8,
-      background: '#e5e7eb',
+      background: '#0a0a0a',
       borderRadius: 4,
       marginTop: 14,
       overflow: 'hidden',
     },
     table: { width: '100%', borderCollapse: 'collapse' as const, fontSize: 14 },
-    th: { textAlign: 'left' as const, padding: '12px 12px', color: '#9ca3af', fontWeight: 600, borderBottom: '1px solid #e5e7eb', fontSize: 12, textTransform: 'uppercase' as const, letterSpacing: '0.08em' },
-    td: { padding: '14px 12px', borderBottom: '1px solid #e5e7eb', color: '#1f2937' },
-    sectionTitle: { fontSize: 16, fontWeight: 600, margin: '0 0 20px 0', color: '#111827', letterSpacing: '-0.3px' },
+    th: { textAlign: 'left' as const, padding: '12px 12px', color: '#666666', fontWeight: 600, borderBottom: '1px solid #2a2a2a', fontSize: 12, textTransform: 'uppercase' as const, letterSpacing: '0.08em' },
+    td: { padding: '14px 12px', borderBottom: '1px solid #2a2a2a', color: '#a0a0a0' },
+    sectionTitle: { fontSize: 16, fontWeight: 600, margin: '0 0 20px 0', color: '#ffffff', letterSpacing: '-0.3px' },
   };
 
   const cardHover = (e: React.MouseEvent<HTMLDivElement>) => {
     e.currentTarget.style.transform = 'translateY(-2px)';
-    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.06)';
+    e.currentTarget.style.boxShadow = '0 0 30px rgba(255,255,255,0.05)';
   };
   const cardLeave = (e: React.MouseEvent<HTMLDivElement>) => {
     e.currentTarget.style.transform = '';
@@ -95,8 +95,8 @@ export default function DashboardPage({ data, onLogout }: Props) {
     borderRadius: 6,
     fontSize: 11,
     fontWeight: 600,
-    background: '#f8f9fa',
-    color: '#111827',
+    background: '#0a0a0a',
+    color: '#ffffff',
     letterSpacing: '0.03em' as const,
   });
 
@@ -116,11 +116,11 @@ export default function DashboardPage({ data, onLogout }: Props) {
           <span style={styles.badge}>{subscription.plan_name} Plan</span>
         </div>
         <div style={styles.headerRight}>
-          <span style={{ color: '#6b7280', fontSize: 13, fontWeight: 500 }}>{user.company_name}</span>
-          <span style={{ color: '#9ca3af', fontSize: 13 }}>{user.email}</span>
+          <span style={{ color: '#a0a0a0', fontSize: 13, fontWeight: 500 }}>{user.company_name}</span>
+          <span style={{ color: '#666666', fontSize: 13 }}>{user.email}</span>
           <button style={styles.logoutBtn} onClick={onLogout}
-            onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = '#000000'; (e.target as HTMLElement).style.color = '#000000'; }}
-            onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = '#d1d5db'; (e.target as HTMLElement).style.color = '#6b7280'; }}
+            onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = '#ffffff'; (e.target as HTMLElement).style.color = '#ffffff'; }}
+            onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = '#2a2a2a'; (e.target as HTMLElement).style.color = '#a0a0a0'; }}
           >Logout</button>
         </div>
       </header>
@@ -150,11 +150,11 @@ export default function DashboardPage({ data, onLogout }: Props) {
 
           <div style={styles.card} onMouseEnter={cardHover} onMouseLeave={cardLeave}>
             <p style={styles.cardTitle}>Billing Cycle</p>
-            <p style={{ fontSize: 14, color: '#6b7280', margin: 0, lineHeight: 1.5 }}>
+            <p style={{ fontSize: 14, color: '#a0a0a0', margin: 0, lineHeight: 1.5 }}>
               {subscription.billing_cycle_start || 'N/A'} &ndash; {subscription.billing_cycle_end || 'N/A'}
             </p>
             <p style={styles.statSub}>
-              Status: <span style={{ color: subscription.status === 'active' ? '#16a34a' : '#dc2626', fontWeight: 600 }}>
+              Status: <span style={{ color: subscription.status === 'active' ? '#22c55e' : '#ef4444', fontWeight: 600 }}>
                 {subscription.status}
               </span>
             </p>
@@ -167,7 +167,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
             Linked APIs ({apis.length}/{subscription.max_apis} max)
           </h2>
           {apis.length === 0 ? (
-            <p style={{ color: '#6b7280', fontSize: 14 }}>No APIs linked yet.</p>
+            <p style={{ color: '#a0a0a0', fontSize: 14 }}>No APIs linked yet.</p>
           ) : (
             <table style={styles.table}>
               <thead>
@@ -181,16 +181,16 @@ export default function DashboardPage({ data, onLogout }: Props) {
               </thead>
               <tbody>
                 {apis.map((api, i) => (
-                  <tr key={i} style={{ transition: 'background 0.2s ease' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#f8f9fa'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
+                  <tr key={i} style={{ transition: 'background 0.2s ease' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#222222'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
                     <td style={styles.td}>
-                      <span style={{ fontWeight: 600 }}>{api.provider_name}</span>
+                      <span style={{ fontWeight: 600, color: '#ffffff' }}>{api.provider_name}</span>
                     </td>
                     <td style={styles.td}>{api.api_key_label || '—'}</td>
                     <td style={styles.td}>{formatNumber(api.allocated_credits)}</td>
                     <td style={styles.td}>{formatNumber(api.credits_used)}</td>
                     <td style={styles.td}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <div style={{ width: 80, height: 6, background: '#e5e7eb', borderRadius: 3, overflow: 'hidden' }}>
+                        <div style={{ width: 80, height: 6, background: '#0a0a0a', borderRadius: 3, overflow: 'hidden' }}>
                           <div style={{
                             height: '100%',
                             width: `${Math.min(api.utilization_pct, 100)}%`,
@@ -199,7 +199,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
                             transition: 'width 0.3s ease',
                           }} />
                         </div>
-                        <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 500 }}>{api.utilization_pct}%</span>
+                        <span style={{ fontSize: 12, color: '#a0a0a0', fontWeight: 500 }}>{api.utilization_pct}%</span>
                       </div>
                     </td>
                   </tr>
@@ -213,7 +213,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
         <div style={{ ...styles.card, marginBottom: 28, padding: 28 }}>
           <h2 style={styles.sectionTitle}>Recent Usage (Last 30 Days)</h2>
           {recent_usage.length === 0 ? (
-            <p style={{ color: '#6b7280', fontSize: 14 }}>No usage data yet.</p>
+            <p style={{ color: '#a0a0a0', fontSize: 14 }}>No usage data yet.</p>
           ) : (
             <table style={styles.table}>
               <thead>
@@ -225,7 +225,7 @@ export default function DashboardPage({ data, onLogout }: Props) {
               </thead>
               <tbody>
                 {recent_usage.slice(0, 15).map((u, i) => (
-                  <tr key={i} style={{ transition: 'background 0.2s ease' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#f8f9fa'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
+                  <tr key={i} style={{ transition: 'background 0.2s ease' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#222222'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
                     <td style={styles.td}>{u.date}</td>
                     <td style={styles.td}>{u.provider_name}</td>
                     <td style={styles.td}>{u.credits_used.toLocaleString()}</td>
@@ -241,12 +241,12 @@ export default function DashboardPage({ data, onLogout }: Props) {
           <div style={{ ...styles.card, padding: 28 }}>
             <h2 style={styles.sectionTitle}>Active Alerts</h2>
             {alerts.map((a: any, i: number) => (
-              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #e5e7eb', transition: 'background 0.2s ease' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#f8f9fa'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #2a2a2a', transition: 'background 0.2s ease' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#222222'} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
                 <div>
                   <span style={alertBadgeStyle(a.type)}>{a.type.replace('_', ' ')}</span>
-                  <span style={{ marginLeft: 10, color: '#6b7280', fontSize: 13 }}>{a.message || ''}</span>
+                  <span style={{ marginLeft: 10, color: '#a0a0a0', fontSize: 13 }}>{a.message || ''}</span>
                 </div>
-                <span style={{ fontSize: 12, color: '#9ca3af' }}>{a.triggered_at || ''}</span>
+                <span style={{ fontSize: 12, color: '#666666' }}>{a.triggered_at || ''}</span>
               </div>
             ))}
           </div>

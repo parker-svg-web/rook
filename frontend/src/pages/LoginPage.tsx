@@ -14,12 +14,10 @@ const styles = `
   }
   .auth-card { animation: fadeInUp 0.5s ease-out; }
   .auth-input { transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-  .auth-input:focus { border-color: #000000 !important; box-shadow: 0 0 0 3px rgba(0,0,0,0.08) !important; outline: none !important; }
+  .auth-input:focus { border-color: #ffffff !important; box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important; outline: none !important; }
   .auth-btn { transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer; }
-  .auth-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+  .auth-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(255,255,255,0.08); background: #e0e0e0 !important; }
   .auth-btn:active { transform: translateY(0); }
-  .auth-toggle { transition: color 0.2s ease; cursor: pointer; }
-  .auth-toggle:hover { color: #1f2937 !important; }
 `;
 
 export default function LoginPage({ onLogin, onRegister, error }: Props) {
@@ -46,7 +44,7 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#f8f9fa',
+      background: '#0a0a0a',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -55,25 +53,25 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
       <style>{styles}</style>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       <div className="auth-card" style={{
-        background: '#ffffff',
+        background: '#1a1a1a',
         borderRadius: 20,
         padding: 48,
         width: 400,
-        boxShadow: '0 4px 24px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04)',
-        border: '1px solid #e5e7eb',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
+        border: '1px solid #2a2a2a',
       }}>
         <div style={{ textAlign: 'center', marginBottom: 36 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
             <RookLogoText size={32} />
           </div>
-          <p style={{ color: '#9ca3af', marginTop: 0, fontSize: 14, fontWeight: 400 }}>
+          <p style={{ color: '#666666', marginTop: 0, fontSize: 14, fontWeight: 400 }}>
             Telecom for your APIs
           </p>
         </div>
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: 20 }}>
-            <label style={{ display: 'block', color: '#1f2937', marginBottom: 8, fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }}>
+            <label style={{ display: 'block', color: '#a0a0a0', marginBottom: 8, fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }}>
               Email
             </label>
             <input
@@ -86,9 +84,9 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
                 width: '100%',
                 padding: '14px 16px',
                 borderRadius: 10,
-                border: '1px solid #d1d5db',
-                background: '#ffffff',
-                color: '#111827',
+                border: '1px solid #2a2a2a',
+                background: '#0a0a0a',
+                color: '#ffffff',
                 fontSize: 14,
                 boxSizing: 'border-box',
                 fontFamily: 'Inter, sans-serif',
@@ -98,7 +96,7 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
           </div>
 
           <div style={{ marginBottom: 20 }}>
-            <label style={{ display: 'block', color: '#1f2937', marginBottom: 8, fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }}>
+            <label style={{ display: 'block', color: '#a0a0a0', marginBottom: 8, fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }}>
               Password
             </label>
             <input
@@ -111,9 +109,9 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
                 width: '100%',
                 padding: '14px 16px',
                 borderRadius: 10,
-                border: '1px solid #d1d5db',
-                background: '#ffffff',
-                color: '#111827',
+                border: '1px solid #2a2a2a',
+                background: '#0a0a0a',
+                color: '#ffffff',
                 fontSize: 14,
                 boxSizing: 'border-box',
                 fontFamily: 'Inter, sans-serif',
@@ -124,7 +122,7 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
 
           {isRegister && (
             <div style={{ marginBottom: 20 }}>
-              <label style={{ display: 'block', color: '#1f2937', marginBottom: 8, fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }}>
+              <label style={{ display: 'block', color: '#a0a0a0', marginBottom: 8, fontSize: 13, fontWeight: 600, letterSpacing: '0.02em' }}>
                 Company Name
               </label>
               <input
@@ -137,9 +135,9 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
                   width: '100%',
                   padding: '14px 16px',
                   borderRadius: 10,
-                  border: '1px solid #d1d5db',
-                  background: '#ffffff',
-                  color: '#111827',
+                  border: '1px solid #2a2a2a',
+                  background: '#0a0a0a',
+                  color: '#ffffff',
                   fontSize: 14,
                   boxSizing: 'border-box',
                   fontFamily: 'Inter, sans-serif',
@@ -150,8 +148,8 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
           )}
 
           {displayError && (
-            <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 10, padding: '12px 16px', marginBottom: 16 }}>
-              <p style={{ color: '#dc2626', fontSize: 13, margin: 0 }}>{displayError}</p>
+            <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 10, padding: '12px 16px', marginBottom: 16 }}>
+              <p style={{ color: '#ef4444', fontSize: 13, margin: 0 }}>{displayError}</p>
             </div>
           )}
 
@@ -164,8 +162,8 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
               padding: '14px 16px',
               borderRadius: 10,
               border: 'none',
-              background: loading ? '#1f2937' : '#000000',
-              color: 'white',
+              background: '#ffffff',
+              color: '#0a0a0a',
               fontSize: 15,
               fontWeight: 600,
               opacity: loading ? 0.7 : 1,
@@ -181,15 +179,18 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
         <div style={{ marginTop: 24, textAlign: 'center' }}>
           <button
             onClick={() => { setIsRegister(!isRegister); setLocalError(''); }}
-            className="auth-toggle"
             style={{
               background: 'none',
               border: 'none',
-              color: '#9ca3af',
+              color: '#666666',
+              cursor: 'pointer',
               fontSize: 13,
               fontWeight: 500,
               fontFamily: 'Inter, sans-serif',
+              transition: 'color 0.2s ease',
             }}
+            onMouseEnter={e => (e.target as HTMLElement).style.color = '#ffffff'}
+            onMouseLeave={e => (e.target as HTMLElement).style.color = '#666666'}
           >
             {isRegister ? 'Already have an account? Sign in' : 'New here? Create an account'}
           </button>
