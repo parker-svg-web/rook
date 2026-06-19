@@ -49,7 +49,7 @@ export default function LoginPage({ onLogin, onRegister, error }: Props) {
             Rook
           </h1>
           <p style={{ color: '#64748b', marginTop: 8, fontSize: 14 }}>
-            Telecom for API
+            Telecom for your APIs
           </p>
         </div>
 
