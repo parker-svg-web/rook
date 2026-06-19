@@ -86,7 +86,7 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
       {/* Header */}
       <div style={{ background: '#1a1a1a', borderBottom: '1px solid #2a2a2a', padding: '16px 32px', display: 'flex', alignItems: 'center', gap: 16 }}>
         <span style={{ fontSize: 20, fontWeight: 700, color: '#ffffff' }}>Rook</span>
-        <span style={{ color: '#666666', fontSize: 13 }}>Setup Wizard</span>
+        <span style={{ color: '#666666', fontSize: 13 }}>Setup</span>
       </div>
 
       {/* Progress */}
@@ -116,7 +116,7 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
         {step === 0 && (
           <div style={{ background: '#1a1a1a', borderRadius: 16, padding: 40, border: '1px solid #2a2a2a' }}>
             <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8, color: '#ffffff' }}>Create Your Account</h2>
-            <p style={{ color: '#666666', marginBottom: 32, fontSize: 14 }}>Start your free trial — no credit card required.</p>
+            <p style={{ color: '#a0a0a0', marginBottom: 32, fontSize: 14 }}>One API key for all your providers. One predictable bill.</p>
             <input style={inputStyle} type="email" placeholder="Work email" value={email} onChange={e => setEmail(e.target.value)} />
             <input style={inputStyle} type="text" placeholder="Company name" value={company} onChange={e => setCompany(e.target.value)} />
             <input style={inputStyle} type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
@@ -131,7 +131,7 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
         {step === 1 && (
           <div>
             <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8, color: '#ffffff' }}>Choose Your Plan</h2>
-            <p style={{ color: '#666666', marginBottom: 32, fontSize: 14 }}>Pick the tier that fits your team. You can upgrade anytime.</p>
+            <p style={{ color: '#a0a0a0', marginBottom: 32, fontSize: 14 }}>Pick the tier that fits your team. All plans include access to OpenAI, Twilio, SendGrid, and more.</p>
             {plans.filter(p => p.slug !== 'enterprise').map(p => (
               <div key={p.slug} onClick={() => setSelectedPlan(p.slug)} style={{
                 background: selectedPlan === p.slug ? '#222222' : '#1a1a1a',
@@ -143,7 +143,7 @@ export default function OnboardingPage({ plans, providers, token, onComplete }: 
                   <div>
                     <h3 style={{ fontSize: 18, fontWeight: 600, margin: 0, color: '#ffffff' }}>{p.name}</h3>
                     <p style={{ color: '#a0a0a0', fontSize: 13, margin: '4px 0 0' }}>
-                      {(p.pool_credits / 1000).toLocaleString()}K credits &middot; Up to {p.max_apis} APIs
+                      {(p.pool_credits / 1000).toLocaleString()}K shared credits &middot; Up to {p.max_apis} providers
                     </p>
                   </div>
                   <div style={{ textAlign: 'right' }}>

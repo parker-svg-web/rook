@@ -161,6 +161,25 @@ export default function DashboardPage({ data, onLogout }: Props) {
           </div>
         </div>
 
+        {/* Available Providers */}
+        <div style={{ ...styles.card, marginBottom: 28, padding: 28 }}>
+          <h2 style={styles.sectionTitle}>Available Providers</h2>
+          <p style={{ color: '#a0a0a0', fontSize: 14, marginBottom: 20 }}>All providers included in your plan — no separate API keys needed.</p>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            {['OpenAI', 'Twilio', 'SendGrid', 'Stripe', 'AWS', 'Anthropic'].map(provider => (
+              <div key={provider} style={{
+                background: '#0a0a0a', borderRadius: 10,
+                padding: '12px 20px', border: '1px solid #2a2a2a',
+                color: '#ffffff', fontSize: 14, fontWeight: 500,
+                display: 'flex', alignItems: 'center', gap: 8,
+              }}>
+                <span style={{ color: '#22c55e', fontSize: 10 }}>●</span>
+                {provider}
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Recent Usage */}
         <div style={{ ...styles.card, marginBottom: 28, padding: 28 }}>
           <h2 style={styles.sectionTitle}>Recent Usage (Last 30 Days)</h2>
